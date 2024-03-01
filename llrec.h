@@ -3,7 +3,7 @@
 #ifndef NULL
 #define NULL 0
 #endif
-
+#include <iostream>
 /**
  * Node struct for both problems
  */
@@ -83,8 +83,19 @@ Node* llfilter(Node* head, Comp pred)
     //*********************************************
     // Provide your implementation below
     //*********************************************
-
-
+  if (head == nullptr) {
+    return nullptr;
+  }
+  if (pred(head->val)) {
+    Node* temp = head;
+    head = head->next;
+    delete temp;
+    head = llfilter(head, pred);
+  }
+  else {
+    head->next = llfilter(head->next, pred);
+  }
+  return head;
 }
 
 #endif

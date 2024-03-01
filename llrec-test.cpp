@@ -68,7 +68,11 @@ void dealloc(Node* head)
 // -----------------------------------------------
 
 
-
+struct comp {
+  bool operator()(int& val) {
+    return val > 8;
+  }
+};
 
 
 int main(int argc, char* argv[])
@@ -86,10 +90,40 @@ int main(int argc, char* argv[])
     print(head);
 
     // Test out your linked list code
+    cout << "Testing pivot:" << endl;
+    Node* smaller;
+    Node* larger;
+    int pivot = 8;
 
+    llpivot(head, smaller, larger, pivot);
 
+    cout << "Smaller: ";
+    print(smaller);
 
-    
+    cout << "Larger: ";
+    print(larger);
+
+    cout << "original: ";
+    print(head);
+    cout << endl;
+
+    cout << "Testing filter:" << endl;
+    Node* head2 = readList(argv[1]);
+    cout << "Original list: ";
+    print(head2);
+
+    comp c;
+
+    head2 = llfilter(head2, c);
+
+    cout << "Result: ";
+    print(head2);
+    cout << endl;
+
+    dealloc(head);
+    dealloc(smaller);
+    dealloc(larger);
+    dealloc(head2);
     return 0;
 
 }
